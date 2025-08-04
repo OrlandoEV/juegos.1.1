@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+
+
+ <title>Servicio que valida datos</title>
+
+</head>
+
+<body>
+
+ <h1>Juego de adivinanzas</h1>
+
+ <form onsubmit="procesaForma(event) ">
+
+  <p>
+      Un enano panturrano, con tres patas y una mano.
+      ¿Que es?
+    </p>
+
+    <p>
+      <label>
+        Respuesta:
+        <input name="adivinanza">
+      </label>
+    </p>
+
+  <p><button type="submit">Procesa</button></p>
+
+ </form>
+
+ <script type="module">
+
+  import { exportaAHtml } from "./lib/js/exportaAHtml.js"
+  import { muestraError } from "./lib/js/muestraError.js"
+  import { submitForm } from "./lib/js/submitForm.js"
+
+  /**
+   * @param {Event} event
+   */
+  async function procesaForma(event) {
+   try {
+    const respuesta =
+     await submitForm(
+      "srv/valida.php", event)
+    alert(respuesta.body)
+   } catch (error) {
+    muestraError(error)
+   }
+  }
+  exportaAHtml(procesaForma)
+
+ </script>
+
+</body>
+
+</html>
